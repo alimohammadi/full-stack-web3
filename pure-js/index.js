@@ -1,19 +1,19 @@
-const ethers = require("ethers");
+const { ethers } = require("ethers");
 
 document.getElementById("connect").addEventListener("click", async () => {
   if (window.ethereum) {
     await window.ethereum.request({ method: "eth_requestAccounts" });
     console.log("Wallet connected");
-    ethereum.request({ method: "eth_accounts" }).then(console.log);
+    console.log(await ethereum.request({ method: "eth_accounts" }));
   }
 });
 
-async function execute() {
+window.execute = async function execute() {
   // address
   // contract ABI(blueprint to interact with contract)
   // function
   // node connection => Metamask
-  const contractAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
+  const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
   const abi = [
     {
       inputs: [
@@ -109,7 +109,7 @@ async function execute() {
   const contract = new ethers.Contract(contractAddress, abi, signer);
 
   await contract.store(42);
-}
+};
 
 window.addEventListener("load", async () => {
   if (typeof window.ethereum !== "undefined") {
@@ -119,7 +119,3 @@ window.addEventListener("load", async () => {
     console.log("MetaMask not found");
   }
 });
-
-module.exports = {
-  execute,
-};
